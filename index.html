@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="styles/track-finder.css">
+    </head>
   <body>
-    <div>
-      <input type="text" id="textBox" placeholder="Search favourite tracks"></input>
-      <button type="submit" id="search">Search</button> 
-    </div>
+    <!--Header-->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <div>
+            <h1>Soundcloud Track Finder</h1>
+            <span id="header-line-text pull-right">...Find your favourite artist's tracks on soundcloud and play them</span>      
+          </div>      
+        </div>
+        <!-- search bar-->    
+        <form class="navbar-form navbar-right" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" id="textBox" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default" id="search"><span class="glyphicon glyphicon-search"  aria-hidden="true"></span></button>
+        </form>   
+      </div><!-- /.container-fluid -->
+    </nav> 
+    <!--media player-->
     <div id="media-player">
       <audio controls id="audio"></audio>
+    </div>
+    <!--Error-->
+    <div id="error">
+    </div>
+    <!--Results-->
+    <div id="result">
     </div>
     <script type="text/javascript" src="lib/jquery-2.1.3.js"></script>
     <script type="text/javascript" src="scripts/track-finder.js"></script>    
