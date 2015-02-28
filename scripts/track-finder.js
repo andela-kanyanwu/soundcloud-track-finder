@@ -33,7 +33,7 @@ var trackFinder = {
         if (reply[i].streamable === true) {
           var streamUrl = reply[i].stream_url + "?client_id=dfe6c7a24917b01e30400444842a6de4",
               title = reply[i].title,
-              artworkUrl = reply[i].artwork_url;
+              artworkUrl = reply[i].artwork_url || "images/soundcloud-icon.png"
           
           //Push the songs in the song array
           songArray.push(streamUrl);
