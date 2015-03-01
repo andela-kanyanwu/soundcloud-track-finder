@@ -1,4 +1,12 @@
-#result img {
-  height: 100px;
-  width: 100px;
+.thumbnail-image {
+  height: 100%;
+}
+.artwork {
+  height: 150px !important;
+}
+.thumbnail-image p {
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center; 
 }
