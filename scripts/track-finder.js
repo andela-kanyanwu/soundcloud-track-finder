@@ -1,8 +1,8 @@
 var trackFinder = {
   initialize: function() {
     this.search();
-    this.clickImg();
     $("#error").hide();
+    this.playSong();
   },
   search: function() {
     $("#search").click(function() {
@@ -14,7 +14,8 @@ var trackFinder = {
       $("#error").hide();
       $("#audio").html('<source src="' + ""+ '"type="audio/mpeg">');
       $("#audio").trigger('load');
-      trackFinder.getSongs();      
+      trackFinder.getSongs();    
+      // trackFinder.playSong();
     });    
   },
 
@@ -50,7 +51,7 @@ var trackFinder = {
           imgArray.push(artworkUrl);
        
           //Displays images and embeds the song url in it to make it clickabl
-          $("#result").append('<div class="col-xs-6 col-md-2">' + '<div class="thumbnail thumbnail-image"><p>' + title + '</p><p>' + username +'</p><img class="artwork" src=' + artworkUrl + '></div></div>'); 
+          $("#result").append('<div class="col-xs-6 col-md-2">' + '<div class="thumbnail thumbnail-image"><p>' + title + '</p><p>' + username +'</p><img class="artwork" src=' + artworkUrl + '><button class="play-song">Play</button></div></div>'); 
         }
       }
       $("#audio").trigger('load');
@@ -71,10 +72,11 @@ var trackFinder = {
       }      
     });
   },
-  clickImg: function() {
-    $(".songLink").on('click', function(){
-      alert ("Clicked");
-    });
+  playSong: function() {
+    $("#result").on("click", "button", function(){
+       console.log("Clicked");
+       console.log($(".play-song").text())
+    });   
   }   
 }
 
