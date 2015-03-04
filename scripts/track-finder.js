@@ -14,8 +14,7 @@ var trackFinder = {
       $("#error").hide();
       $("#audio").html('<source src="' + ""+ '"type="audio/mpeg">');
       $("#audio").trigger('load');
-      trackFinder.getSongs();    
-      // trackFinder.playSong();
+      trackFinder.getSongs();   
     });    
   },
 
@@ -32,7 +31,6 @@ var trackFinder = {
     }     
     
     var url = "https://api.soundcloud.com/tracks?q="+ input + "&client_id=dfe6c7a24917b01e30400444842a6de4";
-    //var songArray = [];
     var songArray = trackFinder.songArray,
         imgArray = trackFinder.imgArray;
 
@@ -49,9 +47,10 @@ var trackFinder = {
           //Push the songs in the song array
           songArray.push(streamUrl);
           imgArray.push(artworkUrl);
+
        
           //Displays images and embeds the song url in it to make it clickabl
-          $("#result").append('<div class="col-xs-6 col-md-2">' + '<div class="thumbnail thumbnail-image"><p>' + title + '</p><p>' + username +'</p><img class="artwork" src=' + artworkUrl + '><button class="play-song">Play</button></div></div>'); 
+          $("#result").append('<div class="col-xs-6 col-md-2">' + '<div class="thumbnail thumbnail-image"><p>' + title + '</p><p>' + username +'</p><img class="artwork" src=' + artworkUrl + '><button class="play-song">Play</button>' + '<div style="display:none">' + streamUrl + '</div></div></div>'); 
         }
       }
       $("#audio").trigger('load');
@@ -74,8 +73,10 @@ var trackFinder = {
   },
   playSong: function() {
     $("#result").on("click", "button", function(){
-       console.log("Clicked");
-       console.log($(".play-song").text())
+      var currSongUrl = $(this).next().html();
+      $("#audio").html('<source src="' + currSongUrl + '"type="audio/mpeg">');
+      $("#audio").trigger('load');
+      $("#audio").trigger('play');
     });   
   }   
 }
