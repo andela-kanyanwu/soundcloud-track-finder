@@ -20,6 +20,7 @@ var trackFinder = {
 
   songArray: [],
   imgArray: [],
+  songIndex: 1,
 
   //Get the tracks available
   getSongs: function() {    
@@ -48,7 +49,13 @@ var trackFinder = {
           songArray.push(streamUrl);
           imgArray.push(artworkUrl);
 
-       
+          var divCol = '<div class="col-xs-6 col-md-2">',
+              divThum = '<div class="thumbnail thumbnail-image">',
+              p = '<p>',
+              img = '<img class="artwork" src=' + artworkUrl + '>',
+              button = '<button class="play-song">Play</button>';
+
+
           //Displays images and embeds the song url in it to make it clickabl
           $("#result").append('<div class="col-xs-6 col-md-2">' + '<div class="thumbnail thumbnail-image"><p>' + title + '</p><p>' + username +'</p><img class="artwork" src=' + artworkUrl + '><button class="play-song">Play</button>' + '<div style="display:none">' + streamUrl + '</div></div></div>'); 
         }
@@ -57,26 +64,39 @@ var trackFinder = {
       $("#audio").html('<source src="' + songArray[0] + '"type="audio/mpeg">');
 
       //Get the index of the song and increment when one song ends in order to go to the next
-      var songIndex = 1;
-      audio.addEventListener('ended', function() {
-        $("#audio").html('<source src="' + songArray[songIndex] + '"type="audio/mpeg">'); 
-        $("#audio").load();
-        $("#audio").trigger('play');
-        songIndex ++;        
-      });
-      
+      trackFinder.onSongEnded();
+
       if ($("#result").html().length === 0) {
         $("#error").html("No search found").show();
         $("#result").hide();
       }      
     });
   },
+
+  //When the song playing ends, move to the next
+  onSongEnded: function() {
+    var songArray = trackFinder.songArray;
+    var songIndex = trackFinder.songIndex;
+    
+    audio.addEventListener('ended', function() {
+      $("#audio").html('<source src="' + songArray[songIndex] + '"type="audio/mpeg">'); 
+      $("#audio").load();
+      $("#audio").trigger('play');
+      console.log("audio.addEventListener", songArray[songIndex], songIndex);
+      songIndex ++;        
+    });
+  },
+
   playSong: function() {
     $("#result").on("click", "button", function(){
-      var currSongUrl = $(this).next().html();
+      var currSongUrl = $(this).next().html(),
+          currSongIndex = trackFinder.songArray.indexOf(currSongUrl);
+
       $("#audio").html('<source src="' + currSongUrl + '"type="audio/mpeg">');
       $("#audio").trigger('load');
       $("#audio").trigger('play');
+      trackFinder.songIndex = currSongIndex;
+      console.log("playSong method", trackFinder.songIndex);
     });   
   }   
 }
